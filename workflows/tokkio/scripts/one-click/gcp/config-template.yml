@@ -14,7 +14,7 @@ spec:
         # version: <replace-with-desired-cns-version-defaults-to-12.2>
         # git_ref: <replace-with-git-commit-hash-defaults-to-latest-commit-hash-of-master-branch>
         override_values:
-          cns_nvidia_driver: no 
+          cns_nvidia_driver: yes 
           #gpu_driver_version: <replace-with-desired-gpu-driver-version>
       user_access_cidrs:
         - '0.0.0.0/0'
