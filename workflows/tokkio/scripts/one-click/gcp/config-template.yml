@@ -40,22 +40,22 @@ spec:
         app:
           private_instance: true
           master:
-            type: '<replace-with-desired-instance-type>'
+            type: 'n1-standard-1'
             guest_accelerators:
-            - type: '<replace-with-desired-gpu-type>'
-              count: '<replace-with-number-of-gpu>'
+            - type: 'NVIDIA T4'
+              count: '1'
           features:
             cns: true
             app: true
         turn:
           private_instance: false
           master:
-            type: '<replace-with-desired-instance-type>'
+            type: 'n1-standard-1'
             guest_accelerators: []
           features:
-            cns: <true-when-turn_server_provider-is-rp-otherwise-false>
-            rp: <true-when-turn_server_provider-is-rp-otherwise-false>
-            coturn: <true-when-turn_server_provider-is-coturn-otherwise-false>
+            cns: false
+            rp: false
+            coturn: false
   platform:
     configs:
       # k8s_namespace: '<replace-with-k8s-namespace-for-foundational-chart-to-deploy-defaults-to-platform>'
@@ -63,7 +63,7 @@ spec:
         - name: 'ngc-api-key-secret'
           type: 'Opaque'
           entries:
-            - key: NGC_CLI_API_KEY
+            - key: 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
               value: "{{ lookup('env', 'NGC_CLI_API_KEY') }}"
         - name: 'ngc-docker-reg-secret'
           type: 'dockerconfigjson'
