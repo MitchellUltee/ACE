@@ -1,10 +1,10 @@
 schema_version: '0.0.7'
-name: 'franka'
+name: '<unique-deployment-name>'
 spec:
   infra:
     csp: 'gcp'
     backend:
-      bucket: 'franka-bucket'
+      bucket: '<replace-with-pre-created-deployment-state-bucket-name>'
       credentials: "{{ lookup('env', 'CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE') }}"
     provider:
       project: "{{ lookup('env', 'CLOUDSDK_CORE_PROJECT') }}"
@@ -14,21 +14,21 @@ spec:
         # version: <replace-with-desired-cns-version-defaults-to-12.2>
         # git_ref: <replace-with-git-commit-hash-defaults-to-latest-commit-hash-of-master-branch>
         override_values:
-          cns_nvidia_driver: yes 
+          cns_nvidia_driver: yes
           #gpu_driver_version: <replace-with-desired-gpu-driver-version>
       user_access_cidrs:
-        - '0.0.0.0/0'
+        - '<replace-with-list-of-user-ip-cidrs-from-where-application-ui-and-api-will-be-allowed-access>'
       dev_access_cidrs:
-        - '0.0.0.0/0'
-      region: 'europe-west4-c'
+        - '<replace-with-list-of-developer-ip-cidrs-from-where-ssh-access-should-be-allowed>'
+      region: '<replace-with-gcp-region-to-create-resources-in>'
       ui_bucket_location:
-        location: 'europe-west4-c'
-        region: 'europe-west4-c'
-        alternate_region: 'europe-west4-c'
+        location: '<replace-with-gcp-location-to-create-ui-bucket-in>'
+        region: '<replace-with-gcp-region-to-create-ui-bucket-in>'
+        alternate_region: '<replace-with-gcp-region-to-be-used-to-create-ui-bucket-that-need-dual-region-in>'
       ssh_public_key: "{{ lookup('file', lookup('env', 'HOME') + 'replace-with-ssh-pub-key-path') }}"
       ssh_private_key_path: "{{ lookup('env', 'HOME') + 'replace-with-ssh-pem-key-path' }}"
       additional_ssh_public_keys: []
-      dns_zone_name: 'franka-zone'
+      dns_zone_name: '<replace-with-the-name-of-the-dns-zone-under-which-apps-will-be-registered>'
       # api_sub_domain: '<replace-with-the-subdomain-to-be-used-for-the-api-defaults-to-$name-api>'
       # ui_sub_domain: '<replace-with-the-subdomain-to-be-used-for-the-ui-defaults-to-$name-ui>'
       # elastic_sub_domain: '<replace-with-the-subdomain-to-be-used-for-the-elastic-defaults-to-$name-elastic>'
@@ -42,7 +42,7 @@ spec:
           master:
             type: 'n1-standard-1'
             guest_accelerators:
-            - type: 'NVIDIA T4'
+            - type: 'nvidia-t4'
               count: '1'
           features:
             cns: true
@@ -63,7 +63,7 @@ spec:
         - name: 'ngc-api-key-secret'
           type: 'Opaque'
           entries:
-            - key: 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
+            - key: NGC_CLI_API_KEY
               value: "{{ lookup('env', 'NGC_CLI_API_KEY') }}"
         - name: 'ngc-docker-reg-secret'
           type: 'dockerconfigjson'
