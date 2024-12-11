@@ -13,6 +13,7 @@ spec:
       cns:
         override_values:
           cns_nvidia_driver: yes
+          gpu_driver_version: "535.183.01"
       user_access_cidrs:
         - '<replace-with-list-of-user-ip-cidrs-from-where-application-ui-and-api-will-be-allowed-access>'
       dev_access_cidrs:
