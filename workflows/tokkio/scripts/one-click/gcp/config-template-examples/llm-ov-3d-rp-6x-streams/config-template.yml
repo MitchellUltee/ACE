@@ -31,10 +31,10 @@ spec:
         app:
           private_instance: true
           master:
-            type: 'g2-standard-48'
+            type: 'n1-standard-1'
             guest_accelerators:
-            - type: 'nvidia-l4'
-              count: '4'
+            - type: 'nvidia-t4'
+              count: '1'
           features:
             cns: true
             app: true
