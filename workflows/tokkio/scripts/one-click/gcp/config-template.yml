@@ -13,12 +13,11 @@ spec:
       cns:
         override_values:
           cns_nvidia_driver: yes
-          gpu_driver_version: "535.183.01"
       user_access_cidrs:
         - '<replace-with-list-of-user-ip-cidrs-from-where-application-ui-and-api-will-be-allowed-access>'
       dev_access_cidrs:
         - '<replace-with-list-of-developer-ip-cidrs-from-where-ssh-access-should-be-allowed>'
-      region: 'europe-west4'
+      region: 'europe-west4-c'
       ui_bucket_location:
         location: '<replace-with-gcp-location-to-create-ui-bucket-in>'
         region: '<replace-with-gcp-region-to-create-ui-bucket-in>'
@@ -26,15 +25,15 @@ spec:
       ssh_public_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh') }}"
       ssh_private_key_path: "{{ lookup('env', 'HOME') + './ssh' }}"
       additional_ssh_public_keys: []
-      dns_zone_name: 'franka.capgemini.com'
+      dns_zone_name: 'franka-zone'
       enable_cdn: false
       clusters:
         app:
           private_instance: true
           master:
-            type: 'n1-standard-1'
+            type: 'g2-custom-4-32768'
             guest_accelerators:
-            - type: 'nvidia-t4'
+            - type: 'nvidia-l4'
               count: '1'
           features:
             cns: true
@@ -42,7 +41,7 @@ spec:
         turn:
           private_instance: false
           master:
-            type: 'n1-standard-1'
+            type: 'e2-standard-8'
             guest_accelerators: []
           features:
             cns: false
